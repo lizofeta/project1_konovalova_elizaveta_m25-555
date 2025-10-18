@@ -21,7 +21,7 @@ def get_input(prompt="> "):
 
 def move_player(game_state, direction):
     if not isinstance(direction, str):
-        print('Ошибка: направление должно быть текстом (например: north)')
+        raise TypeError('Ошибка: направление должно быть текстом (например: north)')
     current_room = game_state.get('current_room')
     if direction in ROOMS[current_room]['exits'].keys():
         game_state['current_room'] = ROOMS[current_room]['exits'].get(direction) 
