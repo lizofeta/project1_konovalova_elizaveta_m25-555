@@ -8,9 +8,9 @@ def show_inventory(game_state : dict):
     if not all(isinstance(item, str) for item in player_inventory):
         raise TypeError('Все элементы списка инвентаря должны быть строками.')
     if player_inventory:
-        print(f'Инвентарь: {', '.join(player_inventory)}') # мб заменим на ретурн (посмотрим позже)
+        print(f'Инвентарь: {', '.join(player_inventory)}') 
     else: 
-        print('Инвентарь пуст.') # тут тоже
+        print('Инвентарь пуст.') 
 
 def get_input(prompt="> "):
     try:
