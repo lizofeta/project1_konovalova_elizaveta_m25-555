@@ -37,3 +37,21 @@ def take_item(game_state, item_name):
         print(f'Вы подняли: {item_name}') 
     else:
         print("Такого предмета здесь нет.")
+
+def use_item(game_state, item_name):
+    if not isinstance(item_name, str):
+        raise TypeError('Название предмета должно быть текстом (например:)')
+    if item_name in game_state['player_inventory']:
+        match item_name:
+            case 'torch':
+                print('Теперь хоть что-то видно..')
+            case 'sword':
+                print('Кто с мечом подойдет, от меча и погибнет!')
+            case 'bronze_box':
+                print('Вы открыли шкатулку')
+                if 'rusty_key' not in game_state['player_inventory']:
+                    game_state['player_inventory'].append('rusty_key')
+            case _:
+                print('Вы не знаете, как можете этим воспользоваться')
+    else: 
+        print('У вас нет такого предмета.')
