@@ -31,6 +31,8 @@ def move_player(game_state, direction):
         print('Нельзя пройти в этом направлении.')
     
 def take_item(game_state, item_name):
+    if not isinstance(item_name, str):
+        raise TypeError('Название предмета должно быть текстом (например: apple)')
     if item_name in ROOMS[game_state['current_room']]['items']:
         game_state['player_inventory'].append(item_name)
         ROOMS[game_state['current_room']]['items'].remove(item_name)
