@@ -34,3 +34,27 @@ def solve_puzzle(game_state):
             print('Неверно. Попробуйте снова.')
     else: 
         print("Загадок здесь нет.")
+
+def victory(game_state):
+    print('В сундуке сокровище! Вы победили!')
+    ROOMS[game_state['current_room']]['items'].remove('treasure_chest')
+    game_state['game_over'] = True 
+
+
+def attempt_open_treasure(game_state):
+    if 'treasure_key' in game_state['player_inventory']:
+        print("Вы применяете ключ и замок щёлкает! Сундук открыт!")
+        victory(game_state)
+    else: 
+        open_attempt = input("Сундук заперт. Попробуем ввести код? (да/нет)").lower().strip()
+        if open_attempt == 'да':
+            puzzle = ROOMS[game_state['current_room']]['puzzle']
+            print(puzzle[0])
+            code = get_input("Ваш ответ: ")
+            if code == puzzle[1]:
+                print("Успех! Ваш код подошел, вы открыли сундук!")
+                victory(game_state)
+            else: 
+                print("Ошибка! Код неверный.")
+        else:
+            print("Вы отступаете от сундука")

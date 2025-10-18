@@ -34,9 +34,12 @@ def take_item(game_state, item_name):
     if not isinstance(item_name, str):
         raise TypeError('Название предмета должно быть текстом (например: apple)')
     if item_name in ROOMS[game_state['current_room']]['items']:
-        game_state['player_inventory'].append(item_name)
-        ROOMS[game_state['current_room']]['items'].remove(item_name)
-        print(f'Вы подняли: {item_name}') 
+        if item_name == 'treasure_chest':
+            print("Вы не можете поднять сундук, он слишком тяжелый.")
+        else: 
+            game_state['player_inventory'].append(item_name)
+            ROOMS[game_state['current_room']]['items'].remove(item_name)
+            print(f'Вы подняли: {item_name}') 
     else:
         print("Такого предмета здесь нет.")
 
