@@ -23,15 +23,27 @@ def get_input(prompt="> "):
         print('\nВыход из игры')
         return 'quit'
 
+def change_room(game_state, new_room):
+    current_room = game_state.get('current_room')
+    game_state['current_room'] = new_room
+    game_state['steps_taken'] += 1
+    describe_current_room(game_state)
+    random_event(game_state)
+
 def move_player(game_state, direction):
     if not isinstance(direction, str):
         raise TypeError('Ошибка: направление должно быть текстом (например: north)')
     current_room = game_state.get('current_room')
     if direction in ROOMS[current_room]['exits'].keys():
-        game_state['current_room'] = ROOMS[current_room]['exits'].get(direction) 
-        game_state['steps_taken'] += 1
-        describe_current_room(game_state)
-        random_event(game_state)
+        new_room = ROOMS[current_room]['exits'][direction]
+        if new_room == 'treasure_room':
+            if 'rusty_key' not in game_state['player_inventory']:
+                print('Дверь заперта, нужен ключ, чтобы пройти дальше.')
+            else: 
+                print('Вы используете найденный ключ, чтобы открыть путь в комнату сокровищ.')
+                change_room(game_state, new_room)
+        else: 
+            change_room(game_state, new_room)
     else: 
         print('Нельзя пройти в этом направлении.')
     
