@@ -11,6 +11,7 @@ from labyrinth_game.player_actions import (
 from labyrinth_game.utils import (
     attempt_open_treasure,
     describe_current_room,
+    show_help,
     solve_puzzle,
 )
 
@@ -46,6 +47,8 @@ def process_command(game_state, command):
                 attempt_open_treasure(game_state)
             else: 
                 solve_puzzle(game_state)
+        case 'help':
+            show_help()
 
 def main():
     print('Добро пожаловать в Лабиринт сокровищ!')
