@@ -1,5 +1,6 @@
 from labyrinth_game.constants import ROOMS
 
+
 def describe_current_room(game_state : dict):
 
     if not isinstance(game_state, dict):
@@ -18,7 +19,7 @@ def describe_current_room(game_state : dict):
         print(f'{direction}: {exit}')
     puzzle = ROOMS[current_room].get('puzzle')
     if puzzle:
-        print(f'Кажется, здесь есть загадка (используйте команду solve)')
+        print('Кажется, здесь есть загадка (используйте команду solve)')
 
 def solve_puzzle(game_state):
     puzzle = ROOMS[game_state['current_room']]['puzzle']
@@ -45,7 +46,8 @@ def attempt_open_treasure(game_state):
         print("Вы применяете ключ и замок щёлкает! Сундук открыт!")
         victory(game_state)
     else: 
-        open_attempt = input("Сундук заперт. Попробуем ввести код? (да/нет)").lower().strip()
+        open_attempt = input("Сундук заперт. Попробуем ввести код? (да/нет)")
+        open_attempt = open_attempt.lower().strip()
         if open_attempt == 'да':
             puzzle = ROOMS[game_state['current_room']]['puzzle']
             print(puzzle[0])

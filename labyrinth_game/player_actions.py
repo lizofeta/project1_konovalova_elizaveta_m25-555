@@ -1,6 +1,7 @@
 from labyrinth_game.constants import ROOMS
 from labyrinth_game.utils import describe_current_room
 
+
 def show_inventory(game_state : dict):
     player_inventory = game_state.get('player_inventory')
     if not isinstance(player_inventory, list):

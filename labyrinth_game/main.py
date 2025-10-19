@@ -1,8 +1,18 @@
 #!/usr/bin/env python3
 
-from labyrinth_game.player_actions import (show_inventory, get_input, move_player, take_item, use_item)
-from labyrinth_game.utils import describe_current_room, solve_puzzle, attempt_open_treasure
-from labyrinth_game.constants import ROOMS
+# from labyrinth_game.constants import ROOMS - не используется 
+from labyrinth_game.player_actions import (
+    get_input,
+    move_player,
+    show_inventory,
+    take_item,
+    use_item,
+)
+from labyrinth_game.utils import (
+    attempt_open_treasure,
+    describe_current_room,
+    solve_puzzle,
+)
 
 game_state = {
         'player_inventory': [], # Инвентарь игрока
@@ -34,7 +44,8 @@ def process_command(game_state, command):
         case 'solve':
             if game_state['current_room'] == 'treasure_room':
                 attempt_open_treasure(game_state)
-            else: solve_puzzle(game_state)
+            else: 
+                solve_puzzle(game_state)
 
 def main():
     print('Добро пожаловать в Лабиринт сокровищ!')
