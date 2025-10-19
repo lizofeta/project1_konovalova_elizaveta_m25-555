@@ -27,12 +27,15 @@ def solve_puzzle(game_state):
     puzzle = ROOMS[game_state['current_room']]['puzzle']
     if puzzle:
         print(puzzle[0])
-        answer = input("Ваш ответ: ")
-        if answer == puzzle[1]:
+        answer = input("Ваш ответ: ").lower()
+        correct_answers = (puzzle[1:])
+        if answer in correct_answers:
             print("Успех! Загадка разгадана.")
             ROOMS[game_state['current_room']]['puzzle'] = None
             game_state['score'] += 1
         else: 
+            if game_state['current_room'] == 'trap_room':
+                trigger_trap(game_state)
             print('Неверно. Попробуйте снова.')
     else: 
         print("Загадок здесь нет.")
