@@ -65,16 +65,10 @@ def attempt_open_treasure(game_state):
         else:
             print("Вы отступаете от сундука")
 
-def show_help():
+def show_help(commands):
     print("\nДоступные команды:")
-    print("  go <direction>  - перейти в направлении (north/south/east/west)")
-    print("  look            - осмотреть текущую комнату")
-    print("  take <item>     - поднять предмет")
-    print("  use <item>      - использовать предмет из инвентаря")
-    print("  inventory       - показать инвентарь")
-    print("  solve           - попытаться решить загадку в комнате")
-    print("  quit            - выйти из игры")
-    print("  help            - показать это сообщение") 
+    for command, description in commands.items():
+        print(f'{command:<16}- {description}')
 
 def pseudo_random(seed, modulo):
     if not isinstance(seed, int) or not isinstance(modulo, int):

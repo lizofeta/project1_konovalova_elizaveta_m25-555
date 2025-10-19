@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# from labyrinth_game.constants import ROOMS - не используется 
+from labyrinth_game.constants import COMMANDS
 from labyrinth_game.player_actions import (
     get_input,
     move_player,
@@ -48,7 +48,7 @@ def process_command(game_state, command):
             else: 
                 solve_puzzle(game_state)
         case 'help':
-            show_help()
+            show_help(COMMANDS)
 
 def main():
     print('Добро пожаловать в Лабиринт сокровищ!')
