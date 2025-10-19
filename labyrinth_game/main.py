@@ -28,27 +28,31 @@ def process_command(game_state, command):
     parts = command.split(' ')
     action = parts[0]
     argument = ' '.join(parts[1:]) if len(parts) > 1 else None
-    match action:
-        case 'go':
-            move_player(game_state, argument)
-        case 'take':
-            take_item(game_state, argument)
-        case 'look':
-            describe_current_room(game_state)
-        case 'inventory':
-            show_inventory(game_state)
-        case 'quit':
-            game_state['game_over'] = True 
-            print('Вы вышли из игры.')
-        case 'use':
-            use_item(game_state, argument)
-        case 'solve':
-            if game_state['current_room'] == 'treasure_room':
-                attempt_open_treasure(game_state)
-            else: 
-                solve_puzzle(game_state)
-        case 'help':
-            show_help(COMMANDS)
+    valid_directions = ['north', 'west', 'south', 'east']
+    if action in valid_directions:
+        move_player(game_state, action)
+    else:
+        match action:
+            case 'go':
+                move_player(game_state, argument)
+            case 'take':
+                take_item(game_state, argument)
+            case 'look':
+                describe_current_room(game_state)
+            case 'inventory':
+                show_inventory(game_state)
+            case 'quit':
+                game_state['game_over'] = True 
+                print('Вы вышли из игры.')
+            case 'use':
+                use_item(game_state, argument)
+            case 'solve':
+                if game_state['current_room'] == 'treasure_room':
+                    attempt_open_treasure(game_state)
+                else: 
+                    solve_puzzle(game_state)
+            case 'help':
+                show_help(COMMANDS)
 
 def main():
     print('Добро пожаловать в Лабиринт сокровищ!')
