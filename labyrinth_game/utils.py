@@ -1,5 +1,4 @@
 from labyrinth_game.constants import ROOMS
-from labyrinth_game.player_actions import get_input
 
 def describe_current_room(game_state : dict):
 
@@ -25,7 +24,7 @@ def solve_puzzle(game_state):
     puzzle = ROOMS[game_state['current_room']]['puzzle']
     if puzzle:
         print(puzzle[0])
-        answer = get_input("Ваш ответ: ")
+        answer = input("Ваш ответ: ")
         if answer == puzzle[1]:
             print("Успех! Загадка разгадана.")
             ROOMS[game_state['current_room']]['puzzle'] = None
@@ -50,7 +49,7 @@ def attempt_open_treasure(game_state):
         if open_attempt == 'да':
             puzzle = ROOMS[game_state['current_room']]['puzzle']
             print(puzzle[0])
-            code = get_input("Ваш ответ: ")
+            code = input("Ваш ответ: ")
             if code == puzzle[1]:
                 print("Успех! Ваш код подошел, вы открыли сундук!")
                 victory(game_state)
