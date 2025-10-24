@@ -1,8 +1,5 @@
 from labyrinth_game.constants import ROOMS
-from labyrinth_game.utils import (
-    describe_current_room,
-    random_event
-    )
+from labyrinth_game.utils import describe_current_room, random_event
 
 
 def show_inventory(game_state : dict):
@@ -39,7 +36,7 @@ def move_player(game_state, direction):
             if 'rusty_key' not in game_state['player_inventory']:
                 print('Дверь заперта, нужен ключ, чтобы пройти дальше.')
             else: 
-                print('Вы используете найденный ключ, чтобы открыть путь в комнату сокровищ.')
+                print('Вы используете найденный ключ, чтобы открыть путь в комнату сокровищ.') # noqa E501
                 change_room(game_state, new_room)
         else: 
             change_room(game_state, new_room)

@@ -1,4 +1,5 @@
 import math
+
 from labyrinth_game.constants import ROOMS
 
 
@@ -79,8 +80,10 @@ def pseudo_random(seed, modulo):
 
 def trigger_trap(game_state):
     print('Ловушка активирована! Пол стал дрожать...')
-    if game_state['player_inventory']:
-        item_index = pseudo_random(game_state['steps_taken'], len(game_state['player_inventory']))
+    player_inventory = game_state.get('player_inventory')
+    if player_inventory:
+        steps_taken = game_state.get('steps_taken')
+        item_index = pseudo_random(steps_taken, len(player_inventory))
         lost_item = game_state['player_inventory'].pop(item_index)
         print(f'Вы потеряли {lost_item}')
     else: 
@@ -93,6 +96,7 @@ def trigger_trap(game_state):
 
 def random_event(game_state):
     prob = pseudo_random(game_state['steps_taken'], 10)
+    player_inventory = game_state.get('player_inventory')
     if prob == 0:
         event = pseudo_random(game_state['steps_taken'] + 1, 3)
         match event:
@@ -103,10 +107,11 @@ def random_event(game_state):
             case 1:
                 # Испуг
                 print("Здесь кто-то есть! Слышен какой-то шорох...")
-                if 'sword' in game_state['player_inventory']:
+                if 'sword' in player_inventory:
                     print("Ваш меч отпугнул существо")
             case 2:
                 # Ловушка 
-                if game_state['current_room'] == 'trap_room' and 'torch' not in game_state['player_inventory']:
+                current_room = game_state.get('current_room')
+                if current_room == 'trap_room' and 'torch' not in player_inventory:
                     print("Опасность!")
                     trigger_trap(game_state)
