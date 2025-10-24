@@ -24,6 +24,9 @@ game_state = {
   }
 
 def process_command(game_state, command):
+    """
+    Функция обрабатывает команды, введенные пользователем.
+    """
     command = command.lower()
     parts = command.split(' ')
     action = parts[0]

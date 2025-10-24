@@ -4,10 +4,11 @@ from labyrinth_game.constants import ROOMS
 
 
 def describe_current_room(game_state : dict):
-
+    """
+    Функция для описания комнаты, в которой находится / в которую входит игрок.
+    """
     if not isinstance(game_state, dict):
         raise TypeError('Параметр game_state должен быть словарем (dict)')
-
     current_room = game_state.get('current_room')
     if current_room is None:
         print('Ошибка! Не указана текущая комната')
@@ -25,6 +26,9 @@ def describe_current_room(game_state : dict):
         print('Кажется, здесь есть загадка (используйте команду solve)')
 
 def solve_puzzle(game_state):
+    """
+    Функция решения загадки, если таковые в комнате есть.
+    """
     puzzle = ROOMS[game_state['current_room']]['puzzle']
     if puzzle:
         print(puzzle[0])
@@ -42,12 +46,21 @@ def solve_puzzle(game_state):
         print("Загадок здесь нет.")
 
 def victory(game_state):
+    """
+    Функция, которая вызывается в случае победы игроком.
+    Устанавливает окончание игры.
+    """
     print('В сундуке сокровище! Вы победили!')
     ROOMS[game_state['current_room']]['items'].remove('treasure_chest')
     game_state['game_over'] = True 
 
 
 def attempt_open_treasure(game_state):
+    """
+    Функция попытки открытия сундука с сокровищами.
+    Если у игрока есть специальный ключ - он автоматичеки выигрывает.
+    Если у игрока нет специального ключа - ему предлагается взломать сундук, решив загадку.
+    """
     if 'treasure_key' in game_state['player_inventory']:
         print("Вы применяете ключ и замок щёлкает! Сундук открыт!")
         victory(game_state)
@@ -67,6 +80,9 @@ def attempt_open_treasure(game_state):
             print("Вы отступаете от сундука")
 
 def show_help(commands):
+    """
+    Функция помощи по командам.
+    """
     print("\nДоступные команды:")
     for command, description in commands.items():
         print(f'{command:<16}- {description}')
@@ -79,6 +95,9 @@ def pseudo_random(seed, modulo):
     return int(random)
 
 def trigger_trap(game_state):
+    """
+    Фуекция генерирует случайную ловушку при входе в комнату с ловушкой.
+    """
     print('Ловушка активирована! Пол стал дрожать...')
     player_inventory = game_state.get('player_inventory')
     if player_inventory:
@@ -95,6 +114,9 @@ def trigger_trap(game_state):
             print("Вам повезло! Отделались царапинами.")
 
 def random_event(game_state):
+    """
+    Функция генерирует случайное событие при вхде в комнату.
+    """
     prob = pseudo_random(game_state['steps_taken'], 10)
     player_inventory = game_state.get('player_inventory')
     if prob == 0:
