@@ -24,7 +24,6 @@ def get_input(prompt="> "):
         return 'quit'
 
 def change_room(game_state, new_room):
-    current_room = game_state.get('current_room')
     game_state['current_room'] = new_room
     game_state['steps_taken'] += 1
     describe_current_room(game_state)
